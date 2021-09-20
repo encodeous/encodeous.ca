@@ -6,24 +6,14 @@
     import Layout from "./Layout.svelte";
     import {theme} from "./Shared/store";
     import {onMount} from "svelte";
-    import ThemeToggle from "./Shared/ThemeToggle.svelte";
     const dark = "g90", light = "g10";
 
     $: document.documentElement.setAttribute("theme", $theme);
 
-    $: console.log(`Theme has been changed to ${$theme}`)
-
     onMount(() => {
-        theme.set(localStorage.getItem("site-theme") ?? dark)
-        theme.subscribe(x=>{
-            console.log(x)
-        })
+        theme.set(localStorage.getItem("site-theme") ?? light)
     });
 </script>
-
-<div class="dark-toggle">
-    <ThemeToggle/>
-</div>
 
 <Theme bind:theme={$theme} />
 
@@ -38,13 +28,3 @@
         </Router>
     {/await}
 </Layout>
-
-<style>
-    .dark-toggle{
-        position: fixed;
-        right: 2px;
-        bottom: 2px;
-        height: 30px;
-        width: 30px;
-    }
-</style>

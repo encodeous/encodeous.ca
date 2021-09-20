@@ -17,5 +17,5 @@
 	src: url('../fonts/Raleway.woff2') format('woff2');
 }
 .bx--content{
-	background-color: var(--cds-ui-background) !important;
+	background-color: var(--cds-background) !important;
 }

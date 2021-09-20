@@ -1,5 +1,5 @@
 export let pages = [
-    ["blog/*", import("./Home.svelte")],
+    ["/anotherpage", import("./AnotherPage.svelte")],
     ["/", import("./Home.svelte")]
 ]
 
@@ -9,7 +9,12 @@ export let navMenu = [
         "name": "Home"
     },
     {
+        "url": "/anotherpage",
+        "name": "Another Page"
+    },
+    {
         "name": "Projects",
+        "url": "/projects",
         "items": [
             {
                 "url": "/",
