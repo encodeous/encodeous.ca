@@ -26,7 +26,7 @@
     let isSideNavOpen = false;
 </script>
 <div use:links>
-    <Header company="" platformName="Adam Chen" href="/" class="azonix" bind:isSideNavOpen expandedByDefault={false}>
+    <Header company="Adam's" platformName="Site" href="/" class="azonix" bind:isSideNavOpen expandedByDefault={false}>
         <div slot="skip-to-content">
             <SkipToContent />
         </div>

@@ -1,12 +1,11 @@
 export let pages = [
-    ["/anotherpage", import("./AnotherPage.svelte")],
     ["/", import("./Home.svelte")]
 ]
 
 export let navMenu = [
     {
         "url": "/",
-        "name": "Home"
+        "name": "About Me"
     },
     {
         "url": "/anotherpage",
