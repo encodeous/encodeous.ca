@@ -24,16 +24,15 @@
   font-family: 'Azonix';
   font-style: normal;
   font-weight: 400;
-  src: url('../../public/fonts/Azonix.woff2') format('woff2');
+  //noinspection CssUnknownTarget
+  src: url('../../fonts/Azonix.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
   font-weight: 400;
-  src: url('../../public/fonts/Raleway.woff2') format('woff2');
-}
-.bx--content{
-  background-color: var(--cds-background) !important;
+  //noinspection CssUnknownTarget
+  src: url('../../fonts/Raleway.woff2') format('woff2');
 }
 .site-container{
   @extend .container;

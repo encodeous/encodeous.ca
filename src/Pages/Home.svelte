@@ -1,24 +1,21 @@
-<svelte:head>
-    <title>
-        About Me
-    </title>
-</svelte:head>
+<script lang="ts">
+  import FlowChar from "../Components/FlowChar.svelte";
 
-<script>
-    function getGreeting(){
-        const t = new Date().getHours();
-        if(t < 12){
-            return "Good Morning,"
-        }
-        if(t < 18){
-            return "Good Afternoon,"
-        }
-        return "Good Evening,"
+  function getGreeting() {
+    const t = new Date().getHours();
+    if (t < 12) {
+      return "Good Morning,";
     }
+    if (t < 18) {
+      return "Good Afternoon,";
+    }
+    return "Good Evening,";
+  }
 </script>
 
 <div class="site-container">
-    <strong class="large">
-        {getGreeting()}
-    </strong>
+  <FlowChar char="A" />
+  <FlowChar char="d" />
+  <FlowChar char="a" />
+  <FlowChar char="m" />
 </div>
