@@ -20,6 +20,7 @@ jobs:
           local: deploy/
           remote: ${{ secrets.DEPLOY_FOLDER }}
           host: ${{ secrets.SSH_HOST }}
+          port: 225
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Run SSH command
@@ -27,5 +28,6 @@ jobs:
         with:
           command: sudo /bin/systemctl restart terrace.service
           host: ${{ secrets.SSH_HOST }}
+          port: 225
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
