@@ -1,15 +1,24 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Host.UseSystemd();
-builder.Services.AddCors(options =>
+var services = builder.Services;
+
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen(opt =>
+{
+    opt.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Encodeous - Public API",
+        Description = "This API is open to the public and can be used by anyone. It contains some of the functionality of my personal website, but also has useful features. Please note, your access to this API may be revoked if you abuse it."
+    });
+});
+services.AddCors(options =>
 {
     options.AddPolicy("AnyOrigin",
         cors =>
@@ -17,14 +26,14 @@ builder.Services.AddCors(options =>
             cors.AllowAnyOrigin();
         });
 });
+
+builder.Host.UseSystemd();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
