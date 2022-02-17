@@ -19,7 +19,7 @@ jobs:
         with:
           local: deploy/
           remote: ${{ secrets.DEPLOY_FOLDER }}
-          host: ${{ secrets.SSH_HOST }}
+          host: oc.encodeous.ca
           port: 225
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -27,7 +27,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@v0.3.0
         with:
           command: sudo /bin/systemctl restart terrace.service
-          host: ${{ secrets.SSH_HOST }}
+          host: oc.encodeous.ca
           port: 225
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
