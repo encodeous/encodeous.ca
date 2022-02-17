@@ -6,7 +6,7 @@ Type=notify
 
 WorkingDirectory=/home/api-user/Terrace/data
 
-ExecStart=/app/dotnet/dotnet /home/api-user/Terrace/deploy/TerraceApi.dll
+ExecStart=/app/dotnet/dotnet /home/api-user/Terrace/deploy/TerraceApi.dll --urls "http://*:5000"
 
 SyslogIdentifier=TerraceAPI
 
