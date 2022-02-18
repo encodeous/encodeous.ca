@@ -9,7 +9,7 @@ namespace TerraceApi.Controllers;
 public class VersionController : ControllerBase
 {
     private static string _version =
-        FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+        FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion[..7];
 
     [HttpGet(Name = "GetVersion")]
     public string Get()
