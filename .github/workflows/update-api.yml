@@ -13,6 +13,10 @@ jobs:
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Update project version
+        uses: roryprimrose/set-vs-sdk-project-version@v1
+        with:
+          informationalVersion: ${{ steps.vars.outputs.sha_short }}
       - name: Build
         run: dotnet publish TerraceApi -c Release -o deploy
       - name: Copy via ssh
