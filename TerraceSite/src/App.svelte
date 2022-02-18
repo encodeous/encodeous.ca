@@ -1,30 +1,72 @@
 <script>
-	export let name;
+	import { Router, Link, Route } from "svelte-routing";
+	import Home from "./routes/Home.svelte";
+
+	export let url = "";
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<div class="page-container">
+	<div></div>
+	<Router url="{url}">
+		<nav class="nav">
+			<div class="nav-section">
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+			</div>
+			<div class="nav-section"></div>
+			<div class="nav-section">
+				<div class="nav-item" >
+					<Link class="nav-link" to="/">Home</Link>
+				</div>
+				<div class="nav-item" >
+					<a class="nav-link" target="_blank" href="https://github.com/encodeous">GitHub</a>
+				</div>
+			</div>
+
+		</nav>
+		<div>
+			<Route path="/">
+				<Home />
+			</Route>
+		</div>
+	</Router>
+
+</div>
+
+
+<style lang="scss">
+	@import "styles/global";
+	.page-container{
+		display: grid;
+		grid-template-rows: 55px auto;
+		height: 100%;
 	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+	.nav{
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		position: absolute;
+		width: 100%;
 	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	.nav-section{
+		display: flex;
+		@extend .fira;
+	}
+	.nav-item{
+		display: flex;
+		height: 100%;
+		margin-left: 5px;
+		margin-right: 5px;
+		align-items: center;
+	}
+	:global(.nav-link){
+		text-decoration: none;
+		color: white;
+		padding: 10px;
+		border-radius: 2px;
+		transition: 1.5s ease-out;
+		margin: 0;
+	}
+	:global(.nav-link:hover){
+		backdrop-filter: hue-rotate(-100deg);
 	}
 </style>

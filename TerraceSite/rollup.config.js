@@ -4,7 +4,10 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
-
+import replace from "@rollup/plugin-replace";
+import scss from 'rollup-plugin-scss'
+import fg from 'fast-glob';
+import preprocess from 'svelte-preprocess';
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -38,6 +41,7 @@ export default {
 	},
 	plugins: [
 		svelte({
+			preprocess: preprocess(),
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production
@@ -68,7 +72,20 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		replace({
+			isProduction: production,
+		}),
+		{
+			name: 'watch-external',
+			async buildStart(){
+				const files = await fg("**/*.scss");
+				for(let file of files){
+					this.addWatchFile(file);
+				}
+			}
+		}
 	],
 	watch: {
 		clearScreen: false

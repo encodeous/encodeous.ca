@@ -1,0 +1,46 @@
+:global(html, body){
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	color: var(--t-pri);
+}
+
+a:link {
+	color: var(--t-sec);
+}
+
+a:visited {
+	color: var(--t-sec);
+}
+
+a:hover {
+	color: var(--t-act);
+}
+
+a:active {
+	color: var(--t-act);
+}
+
+.terri-blue{
+	background: rgb(78,69,188);
+	background: linear-gradient(-20deg, rgb(74, 60, 164) 0%, rgb(109, 120, 185) 35%, rgb(65, 83, 162) 100%);
+}
+
+.fira{
+	font-family: 'Fira Code', monospace;
+}
+
+.tserra{
+	font-family: 'Montserrat', serif;
+}
+
+:root{
+	--t-bg: #5891c0;
+	--t-bg2: #4e45bc;
+	--t-pri: #d3d3ce;
+	--t-act: #62ceff;
+	--t-sec: #8bd4ff;
+	--t-ter: #e1673a;
+}
