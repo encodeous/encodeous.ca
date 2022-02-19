@@ -10,10 +10,13 @@
     let velocity = 0;
     let acceleration = 0;
 
+    let pct = 45;
+    let pctV = 0;
+
     $: blue_style = `
         <style>
         html, body{
-            background: linear-gradient(${degree + 90}deg, rgb(67,55,147) 12%, rgb(102,133,190) 45%, rgb(65, 83, 162) 100%);
+            background: linear-gradient(${degree + 90}deg, rgb(67,55,147) 5%, rgb(102,133,190) ${pct}%, rgb(65, 83, 162) 100%)
         }
         </style>
         `;
@@ -23,7 +26,9 @@
         let y = window.innerHeight / 2;
         let nx = event.clientX;
         let ny = event.clientY;
-        newDegree = Math.atan2(y - ny, x - nx)  * 180 / Math.PI;
+        let dx = (x - nx);
+        let dy = (y - ny);
+        newDegree = Math.atan2(y - ny, x - nx) * 180 / Math.PI;
         newDegree %= 360;
     }
 
@@ -36,11 +41,14 @@
                 if(delta < 0){
                     delta = 360 + delta;
                 }else{
-                    delta = 360 - delta;
+                    delta = delta - 360;
                 }
             }
-            acceleration = delta / 10000;
+            acceleration = delta / 5000;
             velocity /= 1.14;
+            let tPct = Math.max(velocity * velocity, 40);
+            let deltaPct = Math.cbrt(tPct - pct) * 2;
+            pct += deltaPct;
             velocity += acceleration;
             // console.log(acceleration + " " + velocity + " " + newDegree + " " + degree);
             newDegree %= 360;
