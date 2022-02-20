@@ -1,3 +1,4 @@
+using GitRCFS;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
 
@@ -26,6 +27,8 @@ services.AddCors(options =>
             cors.AllowAnyOrigin();
         });
 });
+var rcfs = new FileRepository("https://github.com/encodeous/terrace-data", updateFrequencyMs: 5000);
+services.AddSingleton(rcfs);
 
 builder.Host.UseSystemd();
 
