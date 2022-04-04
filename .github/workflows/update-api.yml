@@ -1,5 +1,8 @@
 name: update-api
-on: [push]
+on: 
+  push:
+    branches:    
+      - 'production'
 jobs:
   build:
     environment: API - Backend
