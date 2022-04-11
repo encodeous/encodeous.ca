@@ -44,3 +44,13 @@ a:active {
 	--t-sec: #8bd4ff;
 	--t-ter: #e1673a;
 }
+
+.page-center{
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.page{
+	padding: 51px 30px 30px;
+}

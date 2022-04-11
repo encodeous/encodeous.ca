@@ -2,6 +2,7 @@
 	import { Router, Link, Route } from "svelte-routing";
 	import Home from "./routes/Home.svelte";
 	import { getVersion } from "./js/api";
+	import Projects from "./routes/Projects.svelte";
 
 	export let url = "";
 </script>
@@ -9,7 +10,7 @@
 <div class="page-container">
 	<div />
 	<Router {url}>
-		<nav class="nav">
+		<nav class="nav nav-bg">
 			<a
 				style="margin-left: 20px;"
 				href="https://github.com/encodeous/Terrace"
@@ -28,6 +29,9 @@
 					<Link class="nav-link" to="/">Home</Link>
 				</div>
 				<div class="nav-item">
+					<Link class="nav-link" to="/projects">Projects</Link>
+				</div>
+				<div class="nav-item">
 					<a
 						class="nav-link"
 						target="_blank"
@@ -36,11 +40,8 @@
 				</div>
 			</div>
 		</nav>
-		<div>
-			<Route path="/">
-				<Home />
-			</Route>
-		</div>
+		<Route path="/projects" component="{Projects}"/>
+		<Route path="/" component="{Home}"/>
 	</Router>
 </div>
 
@@ -57,6 +58,8 @@
 		align-items: center;
 		position: absolute;
 		width: 100%;
+	}
+	:global(.nav-bg) {
 		@extend .acrylic;
 	}
 	.nav-section {

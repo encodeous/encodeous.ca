@@ -1,9 +1,8 @@
 <script>
-    import {API_URL} from "../js/api";
     import TypeOMatic from "../components/TypeOMatic.svelte";
     import { onMount } from 'svelte';
-
-    const greetingName = "Hey There!\nI'm Adam.\nWelcome to my site!";
+    import {rcIndexedText} from "../js/api";
+    import RenderMD from "../components/RenderMD.svelte";
 
     let degree = -20;
     let newDegree = -20;
@@ -60,14 +59,16 @@
 
 <svelte:window on:mousemove={handleMousemove}/>
 
-<div class="main-page" style={bgStyle}>
+<div class="page-center" style={bgStyle}>
     <div class="main-grid">
         <div class="greeting">
-            <TypeOMatic text={greetingName}/>
+            {#await rcIndexedText("home", "typed") then value}
+                <TypeOMatic text={value}/>
+            {/await}
         </div>
         <div class="extra-info">
             <p>
-                This site is still under construction :)
+                <RenderMD path="home" name="subtitle"/>
             </p>
         </div>
     </div>
@@ -75,11 +76,6 @@
 
 <style lang="scss">
   @import "../styles/global";
-  .main-page{
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
   .main-grid{
     //@extend .tserra;
     @extend .fira;
@@ -94,4 +90,7 @@
   }
   .extra-info{
   }
+  //.nav-bg {
+  //  @extend .acrylic;
+  //}
 </style>
