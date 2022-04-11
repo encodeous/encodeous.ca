@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text.Json;
 using GitRCFS;
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
@@ -47,5 +48,15 @@ public class RcfsController : ControllerBase
         }
 
         return File(v.GetData(), contentType);
+    }
+    /// <summary>
+    /// Renders Markdown into HTML
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns>Rendered HTML</returns>
+    [HttpGet("renderpath/{*path}")]
+    public IActionResult RenderPath(string path = "")
+    {
+        return Ok(Markdown.ToHtml(_root.ResolvePath(path).GetStringData()));
     }
 }
