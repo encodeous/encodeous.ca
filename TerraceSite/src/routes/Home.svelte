@@ -13,13 +13,9 @@
     let pct = 45;
     let pctV = 0;
 
-    $: blue_style = `
-        <style>
-        html, body{
-            background: linear-gradient(${degree + 90}deg, rgb(67,55,147) 5%, rgb(102,133,190) ${pct}%, rgb(65, 83, 162) 100%)
-        }
-        </style>
-        `;
+    let bgStyle;
+
+    $: bgStyle = `background: linear-gradient(${degree + 90}deg, rgb(67,55,147) 5%, rgb(102,133,190) ${pct}%, rgb(65, 83, 162) 100%)`;
 
     function handleMousemove(event) {
         let x = window.innerWidth / 2;
@@ -45,11 +41,14 @@
                 }
             }
             acceleration = delta / 5000;
-            velocity /= 1.14;
+            velocity /= 1.07;
             let tPct = Math.max(velocity * velocity, 40);
             let deltaPct = Math.cbrt(tPct - pct) * 2;
             pct += deltaPct;
             velocity += acceleration;
+            let sign = 1;
+            if(velocity < 0) sign = -1;
+            velocity = sign * Math.min(Math.abs(velocity), 0.005);
             // console.log(acceleration + " " + velocity + " " + newDegree + " " + degree);
             newDegree %= 360;
             rid = requestAnimationFrame(update);
@@ -61,9 +60,7 @@
 
 <svelte:window on:mousemove={handleMousemove}/>
 
-{@html blue_style}
-
-<div class="main-page">
+<div class="main-page" style={bgStyle}>
     <div class="main-grid">
         <div class="greeting">
             <TypeOMatic text={greetingName}/>
