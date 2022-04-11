@@ -1,3 +1,4 @@
+using System.Reflection;
 using GitRCFS;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
@@ -18,6 +19,9 @@ services.AddSwaggerGen(opt =>
         Title = "Encodeous - Public API",
         Description = "This API is open to the public and can be used by anyone. It contains some of the functionality of my personal website, but also has useful features. Please note, your access to this API may be revoked if you abuse it."
     });
+    
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    opt.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 services.AddCors(options =>
 {
@@ -25,6 +29,7 @@ services.AddCors(options =>
         cors =>
         {
             cors.AllowAnyOrigin();
+            cors.AllowAnyHeader();
         });
 });
 var rcfs = new FileRepository("https://github.com/encodeous/terrace-data", updateFrequencyMs: 5000);
