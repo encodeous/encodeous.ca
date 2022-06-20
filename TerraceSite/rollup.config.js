@@ -7,7 +7,7 @@ import css from 'rollup-plugin-css-only';
 import replace from "@rollup/plugin-replace";
 import scss from 'rollup-plugin-scss'
 import fg from 'fast-glob';
-import preprocess from 'svelte-preprocess';
+import sveltePreprocess from 'svelte-preprocess';
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -41,7 +41,15 @@ export default {
 	},
 	plugins: [
 		svelte({
-			preprocess: preprocess(),
+			preprocess: sveltePreprocess({
+				sourceMap: !production,
+				postcss: {
+					plugins: [
+						require("tailwindcss"),
+						require("autoprefixer"),
+					],
+				},
+			}),
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production

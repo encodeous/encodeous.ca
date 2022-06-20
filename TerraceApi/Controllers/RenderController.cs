@@ -19,6 +19,7 @@ public class RenderController : ControllerBase
     [HttpPost("render")]
     public IActionResult RenderMarkdown([FromBody] JsonElement markdownContent)
     {
-        return Ok(Markdown.ToHtml(markdownContent.GetString() ?? string.Empty));
+        var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        return Ok(Markdown.ToHtml(markdownContent.GetString() ?? string.Empty, pipeline));
     }
 }

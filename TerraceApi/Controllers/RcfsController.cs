@@ -57,6 +57,7 @@ public class RcfsController : ControllerBase
     [HttpGet("renderpath/{*path}")]
     public IActionResult RenderPath(string path = "")
     {
-        return Ok(Markdown.ToHtml(_root.ResolvePath(path).GetStringData()));
+        var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        return Ok(Markdown.ToHtml(_root.ResolvePath(path).GetStringData() ?? string.Empty, pipeline));
     }
 }
