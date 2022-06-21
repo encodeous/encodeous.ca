@@ -3,8 +3,44 @@
   import Home from "./routes/Home.svelte";
   import { getVersion } from "./js/api";
   import Projects from "./routes/Projects.svelte";
+  import { onMount } from "svelte";
 
   export let url = "";
+
+  let layerStyle;
+  let time = Date.now();
+  let timeElapsed = 0;
+
+  $: layerStyle = getStyle(timeElapsed / 1000);
+
+  function transformedSigmoid(z) {
+    return 1 / (1 + Math.exp(-(z * 3 - 1)));
+  }
+  function transformedSigmoid2(z) {
+    return 1 / (1 + Math.exp(-(z * 3 - 5)));
+  }
+
+  function getStyle(curTime) {
+    if(curTime < 5){
+      let t1 = transformedSigmoid(curTime);
+      let t2 = transformedSigmoid2(curTime);
+      return `
+    backdrop-filter: saturate(${t1}) brightness(${t2}) blur(${10 - 10 * (t2)}px);
+    `;
+    }
+    else{
+      return "";
+    }
+  }
+
+  onMount(async () => {
+    let rid = requestAnimationFrame(function update() {
+      timeElapsed += Date.now() - time;
+      time = Date.now();
+      rid = requestAnimationFrame(update);
+    });
+    return () => cancelAnimationFrame(rid);
+  });
 </script>
 
 <div class="page-container">
@@ -44,6 +80,8 @@
     <Route path="/" component={Home} />
   </Router>
 </div>
+
+<div class="filter" style={layerStyle} />
 
 <style lang="scss">
   @import "styles/global";
@@ -91,5 +129,17 @@
   }
   .acrylic {
     backdrop-filter: blur(100px) brightness(0.8);
+  }
+  .filter {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  .test{
+    backdrop-filter: grayscale(1) saturate(0) brightness(0);
   }
 </style>

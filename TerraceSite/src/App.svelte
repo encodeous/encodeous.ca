@@ -1,10 +1,10 @@
 <script>
-  import Router from "./Router.svelte";
+  import Main from "./Main.svelte";
 
   export let url = "";
 </script>
 
-<Router {url} />
+<Main {url} />
 
 <style global lang="postcss">
   @tailwind base;
