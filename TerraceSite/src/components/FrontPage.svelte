@@ -1,40 +1,97 @@
-<script>
+<script lang="ts">
+    import Victor from "victor";
     import {onMount} from "svelte";
 
-    const app = new PIXI.Application({
-        autoResize: true,
-        resolution: devicePixelRatio
-    });
-    // Create the sprite and add it to the stage
-    let obj = new PIXI.Graphics();
-    obj.beginFill(0xff0000);
-    obj.drawRect(0, 0, 200, 100);
-    app.stage.addChild(obj);
-
-    // Add a ticker callback to move the sprite back and forth
-    let elapsed = 0.0;
-    app.ticker.add((delta) => {
-        elapsed += delta;
-        obj.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
-    });
-    let container;
+    let canvas;
     onMount(() => {
-        container.appendChild(app.view);
-        return () => {
-            // free memory
-        };
-    });
+        let ctx : CanvasRenderingContext2D = canvas.getContext("2d");
+		let frame = requestAnimationFrame(loop);
 
-    window.addEventListener('resize', resize);
+        initialize();
+        window.addEventListener('resize', initialize);
+        window.addEventListener('mousemove', ev => {
+            cursorPos = new Victor(ev.x - lPad, ev.y - tPad);
+        })
 
-    // Resize function window
-    function resize() {
-        // Resize the renderer
-        app.renderer.resize(window.innerWidth, window.innerHeight);
+        function loop(t) {
+
+			frame = requestAnimationFrame(loop);
+            render(ctx);
+		}
+
+		return () => {
+			cancelAnimationFrame(frame);
+		};
+	});
+
+    let cellSize = 40;
+    /**
+     * @type Array<Array<int>>
+     */
+    let cellData = [];
+    let rows, cols;
+    let tPad = 0, lPad = 0;
+    let padding = 2;
+    let cursorPos : Victor = new Victor(0, 0);
+
+    function initialize(){
+        let ctx : CanvasRenderingContext2D = canvas.getContext("2d");
+        let c = ctx.canvas;
+        let w = window.innerWidth;
+        let h = window.innerHeight;
+        rows = Math.floor(h/cellSize);
+        cols = Math.floor(w/cellSize);
+        for (let i = 0; i < cols; i++) {
+            cellData[i] = [];
+            for(let j = 0; j < rows; j++){
+                cellData[i][j] = 0;
+            }
+        }
+        tPad = (h - rows * cellSize) / 2;
+        lPad = (w - cols * cellSize) / 2;
+        c.width = cellSize * cols + padding;
+        c.height = cellSize * rows + padding;
     }
 
-    resize();
+    function render(ctx : CanvasRenderingContext2D){
+        for (let i = 0; i < cols; i++) {
+            for(let j = 0; j < rows; j++){
+                renderCell(i, j, ctx);
+            }
+        }
+    }
+
+    function renderCell(i, j, ctx : CanvasRenderingContext2D) {
+        let x1 = i * cellSize + padding;
+        let y1 = j * cellSize + padding;
+        let offset = cellSize / 2;
+        let middle = new Victor(x1 + offset, y1 + offset);
+        if(middle.distance(cursorPos) < cellSize / 2){
+            ctx.fillStyle = "#333333";
+        }else{
+            ctx.fillStyle = "#1c1c1c"
+        }
+        ctx.fillRect(x1, y1, cellSize - padding, cellSize - padding);
+    }
 
 </script>
 
-<div bind:this={container}/>
+<div class="c-bg">
+    <canvas bind:this={canvas}/>
+</div>
+
+<style>
+	canvas {
+		background-color: #262626;
+	}
+    .c-bg{
+        margin: 0;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1e1e1e;
+    }
+</style>
