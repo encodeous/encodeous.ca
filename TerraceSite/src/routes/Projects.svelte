@@ -26,7 +26,7 @@
     {#await projects}
       Loading Projects...
     {:then loadedProjects}
-      <div class="flex flex-wrap">
+      <div class="flex flex-wrap items-center justify-center">
         {#each loadedProjects as project}
           <Project projectData={project} />
         {/each}
