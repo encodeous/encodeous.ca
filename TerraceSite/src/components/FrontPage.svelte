@@ -39,8 +39,8 @@
         let c = ctx.canvas;
         let w = window.innerWidth;
         let h = window.innerHeight;
-        rows = Math.floor(h/cellSize);
-        cols = Math.floor(w/cellSize);
+        rows = Math.floor(h / cellSize);
+        cols = Math.floor(w / cellSize);
         for (let i = 0; i < cols; i++) {
             cellData[i] = [];
             for(let j = 0; j < rows; j++){
@@ -61,14 +61,24 @@
         }
     }
 
+    function linClamp(x: number, min: number, max: number){
+        return (x - min) / (max - min);
+    }
+
     function renderCell(i, j, ctx : CanvasRenderingContext2D) {
         let x1 = i * cellSize + padding;
         let y1 = j * cellSize + padding;
         let offset = cellSize / 2;
-        let middle = new Victor(x1 + offset, y1 + offset);
-        if(middle.distance(cursorPos) < cellSize / 2){
-            ctx.fillStyle = "#333333";
-        }else{
+        let middle = new Victor(i * cellSize + offset, j * cellSize + offset);
+        let dist = middle.distance(cursorPos);
+        if(dist < cellSize / 2){
+            ctx.fillStyle = "rgb(255, 255, 255)";
+        }
+        else if(dist < 2 * cellSize){
+            let value = 100 + -linClamp(dist, cellSize / 2, 2 * cellSize) * (100 - 28);
+            ctx.fillStyle = `rgb(${value}, ${value}, ${value})`;
+        }
+        else{
             ctx.fillStyle = "#1c1c1c"
         }
         ctx.fillRect(x1, y1, cellSize - padding, cellSize - padding);
