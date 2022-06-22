@@ -42,7 +42,7 @@
     let traceGrid : Array<Array<boolean>> = [];
     let parent : Array<number>;
     let agents : Array<Victor>;
-    let target : Victor = new Victor(0, 0);
+    let target : Victor = new Victor(-1, -1);
     let rows, cols;
     let tPad = 0, lPad = 0;
     let padding = 2;
