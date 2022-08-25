@@ -14,9 +14,26 @@
     
     <ItemGroup>
         <PackageReference Include="GitRCFS" Version="0.1.0" />
+        <PackageReference Include="Humanizer.Core" Version="2.14.1" />
         <PackageReference Include="Markdig.Signed" Version="0.28.1" />
         <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="6.0.0" />
+        <PackageReference Include="Octokit" Version="2.0.1" />
+        <PackageReference Include="SkiaSharp" Version="2.88.1" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Remove="Font\Pacifico-Regular.ttf" />
+      <EmbeddedResource Include="Font\Pacifico-Regular.ttf" />
+      <None Remove="Font\Raleway-Bold.ttf" />
+      <EmbeddedResource Include="Font\Raleway-Bold.ttf" />
+      <None Remove="Font\Raleway-Light.ttf" />
+      <EmbeddedResource Include="Font\Raleway-Light.ttf" />
+      <None Remove="Font\Raleway-Thin.ttf" />
+      <EmbeddedResource Include="Font\Raleway-Thin.ttf" />
+      <None Remove="Font\FiraCode-Retina.ttf" />
+      <EmbeddedResource Include="Font\FiraCode-Retina.ttf" />
     </ItemGroup>
 
 </Project>

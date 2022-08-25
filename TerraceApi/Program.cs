@@ -2,6 +2,8 @@ using System.Reflection;
 using GitRCFS;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.OpenApi.Models;
+using TerraceApi.Services;
+using TerraceApi.Services.AboutMe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +34,11 @@ services.AddCors(options =>
             cors.AllowAnyHeader();
         });
 });
-var rcfs = new FileRepository("https://github.com/encodeous/terrace-data", updateFrequencyMs: 5000);
-services.AddSingleton(rcfs);
+services.AddMemoryCache();
+services.AddHttpClient();
+services.AddSingleton<SkiaService>();
+services.AddTransient<GithubService>();
+services.AddTransient<AmRenderService>();
 
 builder.Host.UseSystemd();
 
