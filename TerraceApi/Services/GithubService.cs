@@ -28,7 +28,7 @@ public class GithubService
                 Following = user.Following,
                 Repos = (await Client.Repository.GetAllForUser(Username)).ToArray()
             };
-            stats.RecentlyUpdated = stats.Repos.OrderByDescending(x => x.UpdatedAt).Take(5).ToArray();
+            stats.RecentlyUpdated = stats.Repos.OrderByDescending(x => x.PushedAt).ToArray();
             stats.Forks = stats.Repos.Count(x => x.Fork);
             stats.Stars = stats.Repos.Sum(x =>
             {

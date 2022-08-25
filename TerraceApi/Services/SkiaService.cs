@@ -26,6 +26,10 @@ public class SkiaService
     {
         return GetTypeface("FiraCode-Retina.ttf");
     }
+    public SKTypeface Twemoji()
+    {
+        return GetTypeface("twemoji.ttf");
+    }
     public SKTypeface GetTypeface(string fullFontName)
     {
         if (_cachedFonts.ContainsKey(fullFontName)) return _cachedFonts[fullFontName];

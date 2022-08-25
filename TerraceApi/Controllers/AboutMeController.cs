@@ -28,10 +28,11 @@ public class AboutMeController : ControllerBase
         HttpContext.Response.Headers.Add("cache-control", "no-cache, no-store, must-revalidate, max-age=0");
         var info = new SKImageInfo(AmRenderService.Width, AmRenderService.Height);
         using var surface = SKSurface.Create(info);
-        await Render.DrawAboutMeAsync(surface, info);
+        await Render.DrawReadmeAsync(surface, info);
         // save the file
         using var image = surface.Snapshot();
         using var data = image.Encode(SKEncodedImageFormat.Png, 100);
-        return new FileStreamResult(data.AsStream(), "image/png");
+        var bytes = data.ToArray();
+        return new FileContentResult(bytes, "image/png");
     }
 }

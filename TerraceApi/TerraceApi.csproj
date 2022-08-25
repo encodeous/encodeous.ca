@@ -34,6 +34,8 @@
       <EmbeddedResource Include="Font\Raleway-Thin.ttf" />
       <None Remove="Font\FiraCode-Retina.ttf" />
       <EmbeddedResource Include="Font\FiraCode-Retina.ttf" />
+      <None Remove="Font\twemoji.ttf" />
+        <EmbeddedResource Include="Font\twemoji.ttf" />
     </ItemGroup>
 
 </Project>
