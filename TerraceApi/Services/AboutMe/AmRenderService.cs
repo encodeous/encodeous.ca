@@ -147,11 +147,11 @@ public class AmRenderService
     {
         DrawTitle(canvas, x, y, "a little about myself", SKColor.Parse("#376939"));
         DrawTextWrapped(canvas, x, y, 57, 
-            " - my name is adam \n " +
+            " * my name is adam, and i am: \n " +
             " - currently in my senior year of high school \n " +
-            $" - lives in toronto, canada. (eastern time, {TimeOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Toronto")))} atm) \n " +
-            " - avid software developer & tech enthusiast \n " +
-            " * favourite languages = new [\"C#\", \"Java\", \"C++\"] \n \n " +
+            $" - living in toronto, canada. (eastern time, {TimeOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Toronto")))} atm) \n " +
+            " - an avid software developer & tech enthusiast \n " +
+            " - and, my fav. languages = new [\"C#\", \"Java\", \"C++\"] \n \n " +
             " * you can contact me on discord at: \n " +
             " - encodeous#7441");
     }
