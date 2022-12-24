@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Text;
 using Humanizer;
 using SkiaSharp;
 using TerraceApi.Utils;
@@ -102,7 +103,7 @@ public class AmRenderService
         await DrawStatsAsync(canvas, 150, 950);
         await DrawRecentReposAsync(canvas, 750, 950);
         var smallStyle = consoleStyle.WithTextSize(30);
-        canvas.DrawText($"{DateTime.UtcNow.ToString("O")}                                              .NET {Environment.Version} & Skia", new SKPoint(25, Height - 47 + smallStyle.TextSize / 2), smallStyle);
+        canvas.DrawText($"Served at {DateTime.UtcNow.ToString("O")}                                 .NET {Environment.Version} & Skia", new SKPoint(25, Height - 47 + smallStyle.TextSize / 2), smallStyle);
     }
 
     private void DrawTitle(SKCanvas canvas, float x, float y, string text, SKColor? color = null)
@@ -145,7 +146,43 @@ public class AmRenderService
     private void DrawAboutMe(SKCanvas canvas, float x, float y)
     {
         DrawTitle(canvas, x, y, "a little about myself", SKColor.Parse("#376939"));
+        DrawTextWrapped(canvas, x, y, 57, 
+            " - my name is adam \n " +
+            " - currently in my senior year of high school \n " +
+            $" - lives in toronto, canada. (eastern time, {TimeOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Toronto")))} atm) \n " +
+            " - avid software developer & tech enthusiast \n " +
+            " * favourite languages = new [\"C#\", \"Java\", \"C++\"] \n \n " +
+            " * you can contact me on discord at: \n " +
+            " - encodeous#7441");
     }
+
+    private void DrawTextWrapped(SKCanvas canvas, float x, float y, int lineLength, string text)
+    {
+        var spl = text.Split(' ');
+        var sb = new StringBuilder();
+        var pos = 120f;
+        foreach (var word in spl)
+        {
+            if (word == "\n")
+            {
+                DrawLine(sb.ToString(), x + 10, y, canvas, consoleStyle, ref pos);
+                sb.Clear();
+                continue;
+            }
+            if (word.Length + sb.Length > lineLength)
+            {
+                DrawLine(sb.ToString(), x + 10, y, canvas, consoleStyle, ref pos);
+                sb.Clear();
+            }
+            sb.Append(word + " ");
+        }
+
+        if (sb.Length != 0)
+        {
+            DrawLine(sb.ToString(), x + 10, y, canvas, consoleStyle, ref pos);
+        }
+    }
+    
     private void DrawGreeting(SKCanvas canvas, SKImageInfo info)
     {
         canvas.DrawText("Hey there! I'm ", new SKPoint(100, 100 + plain.TextSize / 2), plain);
