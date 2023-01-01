@@ -151,7 +151,7 @@ public class AmRenderService
             " - currently in my senior year of high school \n " +
             $" - living in toronto, canada. (eastern time, {TimeOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Toronto")))} atm) \n " +
             " - an avid software developer & tech enthusiast \n " +
-            " - and, my fav. languages = new [\"C#\", \"Java\", \"C++\"] \n \n " +
+            " - and, my fav. languages = new[] {\"C#\", \"Java\", \"C++\"} \n \n " +
             " * you can contact me on discord at: \n " +
             " - encodeous#7441");
     }
