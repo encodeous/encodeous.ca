@@ -149,7 +149,7 @@ public class AmRenderService
         DrawTextWrapped(canvas, x, y, 57, 
             " * My name is Adam, and I am: \n " +
             " - a first year Software Engineering Student \n " +
-            $"   at the University of Waterloo.\n " +
+            "   at the University of Waterloo. \n " +
             " - an avid software developer & tech enthusiast \n " +
             "   and, my fav. languages = new[] {\"C#\", \"Java\", \"C++\"} \n \n " +
             " * You can find me online and on Discord with the name: \n " +
